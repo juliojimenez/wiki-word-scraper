@@ -3,33 +3,47 @@
 from optparse import OptionParser
 import requests
 import re
+import os
 
 def scraper(filename):
-	randomWiki = requests.get("https://www.wikipedia.org/wiki/Special:Random")
-	print "[w] Scraping %s" % randomWiki.url
+	while True:
+		try:
+			randomWiki = requests.get("https://www.wikipedia.org/wiki/Special:Random")
+			print "[w] Scraping %s" % randomWiki.url
 
-	regex = re.findall(r'[a-zA-Z]+', randomWiki.text)
-	lowerList = [x.lower() for x in regex]
-	print "[w] Total Words: %d" % len(lowerList)
-	uniqueList = list(set(lowerList))
-	print "[w] Unique Words: %d" % len(uniqueList)
+			regex = re.findall(r'[a-zA-Z]+', randomWiki.text)
+			lowerList = [x.lower() for x in regex]
+			print "[w] Total Words: %d" % len(lowerList)
+			uniqueList = list(set(lowerList))
+			print "[w] Unique Words: %d" % len(uniqueList)
 
-	with open(filename, 'a+') as f:
-		for x in uniqueList:
-			found = False
-			for y in f:
-				if x == y[:-1]:
-					print "found"
-					found = True
-					break
-			if not found:
-				f.write(x + "\n")
-			
+			with open(filename, 'a') as f:
+				for x in uniqueList:
+					f.write(x + "\n")
+	
+			with open(filename, 'r') as fileCleanup:
+				dirty = []
+				for x in fileCleanup:
+					dirty.append(x[:-1])
+				clean = list(set(dirty))
+				clean.sort()
+				print "\n[f] Total words in file: %d" % len(clean)
+			os.unlink(filename)
+			 
+			with open(filename, 'a') as fileWrite:
+				for x in clean:
+					fileWrite.write(x + "\n")
+
+			fileSize = float(os.path.getsize(filename)) / 1000000
+			print "[f] File Size: %.2f MB\n" % fileSize
+		except KeyboardInterrupt:
+			print " Thanks for playing!"
+			break
 	return True
 
 def main():
 	print ""
-	print " Wiki Word Scraper v0.0.1"
+	print " Wiki Word Scraper v0.0.2"
 	print " Julio Jimenez"
 	print ""
 
