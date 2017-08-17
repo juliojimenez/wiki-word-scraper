@@ -1,7 +1,31 @@
 #!/usr/bin/python
+
 from optparse import OptionParser
 import requests
-import os
+import re
+
+def scraper(filename):
+	randomWiki = requests.get("https://www.wikipedia.org/wiki/Special:Random")
+	print "[w] Scraping %s" % randomWiki.url
+
+	regex = re.findall(r'[a-zA-Z]+', randomWiki.text)
+	lowerList = [x.lower() for x in regex]
+	print "[w] Total Words: %d" % len(lowerList)
+	uniqueList = list(set(lowerList))
+	print "[w] Unique Words: %d" % len(uniqueList)
+
+	with open(filename, 'a+') as f:
+		for x in uniqueList:
+			found = False
+			for y in f:
+				if x == y[:-1]:
+					print "found"
+					found = True
+					break
+			if not found:
+				f.write(x + "\n")
+			
+	return True
 
 def main():
 	print ""
@@ -11,7 +35,16 @@ def main():
 
 	usage = "Usage: %prog [options] arg"
 	parser = OptionParser(usage)
-	parser.add_option("-o", "--output", action="store", type="string", dest="output", help="Output wordlist.")	
+	parser.add_option("-o", "--output", action="store", type="string", dest="output", help="Output wordlist file.")
+
+	(options, args) = parser.parse_args()
+
+	if options.output != None:
+		scraper(options.output)
+	else:
+		parser.print_help()
+
+	return True	
 
 if __name__ == "__main__":
-	main()
+	main()	
