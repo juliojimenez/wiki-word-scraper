@@ -1,10 +1,17 @@
 #!/usr/bin/python
-
-#import requests
+from optparse import OptionParser
+import requests
 import os
 
 def main():
-	print "Yo"
+	print ""
+	print " Wiki Word Scraper v0.0.1"
+	print " Julio Jimenez"
+	print ""
+
+	usage = "Usage: %prog [options] arg"
+	parser = OptionParser(usage)
+	parser.add_option("-o", "--output", action="store", type="string", dest="output", help="Output wordlist.")	
 
 if __name__ == "__main__":
 	main()
