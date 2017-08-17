@@ -1,6 +1,6 @@
 # Wiki Word Scraper
 
-This python script scrapes words from random WikiPedia pages and saves them to a wordlist file.  That's it! ;-)
+This python script scrapes words from random w1k1p3d1a pages and saves them to a wordlist file.  That's it! ;-)
 
 # Usage
 
