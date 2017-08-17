@@ -12,9 +12,9 @@ or
 
 ## Dependencies
 
-*[requests](http://docs.python-requests.org/en/master/)*
+**[requests]**(http://docs.python-requests.org/en/master/)
 
-If you don't have it just *`pip install requests`* it.
+If you don't have it just **`pip install requests`** it.
 
 # Release Notes
 
