@@ -12,7 +12,7 @@ or
 
 ## Dependencies
 
-[requests] [1]
+[requests](http://docs.python-requests.org/en/master/)
 
 If you don't have it just `pip install requests` it.
 
@@ -20,5 +20,3 @@ If you don't have it just `pip install requests` it.
 
 0.0.2 - Put it all in a loop
 0.0.1 - Initial
-
-[1]: http://docs.python-requests.org/en/master/		"requests"
