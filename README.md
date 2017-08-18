@@ -22,7 +22,7 @@ If you don't have it just **`pip install requests`** it.
 
 # Tests
 
-**20170817** - Been running wws for about 3 hours, it created a file called wordlist.lst. So far it has close to 500000 entries. It was stopped and started a few times and kept on going just fine.
+**20170817** - Been running wws for about 3 hours, it created a file called wordlist.lst. So far it has close to 500000 unique entries. It was stopped and started a few times and kept on going just fine.
 
 # Release Notes
 
