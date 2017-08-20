@@ -26,7 +26,7 @@ If you don't have it just **`pip install requests`** it.
 
 **20170819** - Kept running it on the same file, got it up to 763661 entries. Played a little game of grepping the file for whatever word I could think of, there was very little I couldn't find in that file, lol.
 
-Don't be discouraged if after 500,000 words you're not seeing aggressive increases in your wordlist. According to [Oxford](https://en.oxforddictionaries.com/explore/how-many-words-are-there-in-the-english-language), the Second Edition of the 20-volume Oxford English Dictionary contains full entries for 171,476 words in current use, and 47,156 obsolete words. So really, after 250,000 it's pretty much all nouns and extraneous stuff.
+Don't be discouraged if after 500,000 words you're not seeing aggressive increases in your wordlist. According to [Oxford](https://en.oxforddictionaries.com/explore/how-many-words-are-there-in-the-english-language), the Second Edition of the 20-volume Oxford English Dictionary contains full entries for 171,476 words in current use, and 47,156 obsolete words. So really, after a little over 218,000 it's pretty much all nouns, other languages, and nonsense the regex happened to catch.
 
 # Release Notes
 
