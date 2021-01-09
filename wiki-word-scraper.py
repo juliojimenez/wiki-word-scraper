@@ -45,10 +45,10 @@ def scraper(filename):
 	return True
 
 def main():
-	print ""
-	print " Wiki Word Scraper"
-	print " Julio Jimenez"
-	print ""
+	print("")
+	print(" Wiki Word Scraper")
+	print(" Julio Jimenez")
+	print("")
 
 	usage = "Usage: %prog [options] arg"
 	parser = OptionParser(usage)
