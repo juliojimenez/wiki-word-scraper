@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from optparse import OptionParser
 import requests
 import re
