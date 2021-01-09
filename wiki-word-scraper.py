@@ -8,13 +8,13 @@ def scraper(filename):
 	while True:
 		try:
 			randomWiki = requests.get("https://www.wikipedia.org/wiki/Special:Random")
-			print "[w] Scraping %s" % randomWiki.url
+			print(f"[w] Scraping {randomWiki.url}")
 
 			regex = re.findall(r'[a-zA-Z]+', randomWiki.text)
 			lowerList = [x.lower() for x in regex]
-			print "[w] Total Words: %d" % len(lowerList)
+			print(f"[w] Total Words: {len(lowerList)}")
 			uniqueList = list(set(lowerList))
-			print "[w] Unique Words: %d" % len(uniqueList)
+			print(f"[w] Unique Words: {len(uniqueList)}")
 
 			with open(filename, 'a') as f:
 				for x in uniqueList:
@@ -26,7 +26,7 @@ def scraper(filename):
 					dirty.append(x[:-1])
 				clean = list(set(dirty))
 				clean.sort()
-				print "\n[f] Total words in file: %d" % len(clean)
+				print(f"\n[f] Total words in file: {len(clean)}")
 			
 			copyfile(filename, filename + ".bak")
 			os.unlink(filename)
@@ -36,17 +36,17 @@ def scraper(filename):
 					fileWrite.write(x + "\n")
 
 			fileSize = float(os.path.getsize(filename)) / 1000000
-			print "[f] File Size: %.2f MB\n" % fileSize
+			print("[f] File Size: %.2f MB\n" % fileSize)
 			
 			os.unlink(filename + ".bak")
 		except KeyboardInterrupt:
-			print " Thanks for playing!"
+			print(" Thanks for playing!")
 			break
 	return True
 
 def main():
 	print ""
-	print " Wiki Word Scraper v0.0.3"
+	print " Wiki Word Scraper"
 	print " Julio Jimenez"
 	print ""
 
