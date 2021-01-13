@@ -11,6 +11,7 @@ class TestWikiWordScraper(unittest.TestCase):
         self.assertIsInstance(result, str)
 
     def test_word_list(self):
+        print(f"[T] Testing with testdata/test.html")
         with open("testdata/test.html", "r") as f:
             test_html: str = f.read()
         result: list = word_list(test_html)
