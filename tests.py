@@ -1,6 +1,7 @@
 import unittest
 from wws import (
-    get_wiki_text
+    get_wiki_text,
+    word_list
 )
 
 class TestWikiWordScraper(unittest.TestCase):
