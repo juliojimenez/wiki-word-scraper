@@ -1,4 +1,5 @@
 import io
+from typing import _SpecialForm
 import unittest
 from unittest.mock import MagicMock, patch
 from wws import add_to_main_file, get_wiki_text, word_list
@@ -7,7 +8,7 @@ from wws import add_to_main_file, get_wiki_text, word_list
 class TestWikiWordScraper(unittest.TestCase):
     def test_add_to_main_file(self):
         with patch("builtins.open", create=True) as mock_open:
-            mock_open.return_value = MagicMock(spec=io.IOBase)
+            mock_open.return_value: _SpecialForm = MagicMock(spec=io.IOBase)
             result: bool = add_to_main_file("/some/path", ["a", "b", "c"])
         self.assertTrue(result)
 
