@@ -2,7 +2,13 @@ import io
 from typing import _SpecialForm
 import unittest
 from unittest.mock import MagicMock, patch
-from wws import add_to_main_file, get_wiki_text, word_list, clean_list
+from wws import (
+    add_to_main_file,
+    get_wiki_text,
+    word_list,
+    clean_list,
+    file_backup,
+)
 
 
 class TestWikiWordScraper(unittest.TestCase):
@@ -27,7 +33,13 @@ class TestWikiWordScraper(unittest.TestCase):
     def test_clean_list(self):
         print("[T] Testing with testdata/cleanlist.txt")
         result: list = clean_list("testdata/cleanlist.txt")
-        self.assertEquals(result, ["four", "one", "three", "two"])
+        self.assertEqual(result, ["four", "one", "three", "two"])
+
+    @patch("shutil.copyfile")
+    @patch("os.unlink")
+    def test_file_backup(self, mock_unlink, mock_copyfile):
+        result: bool = file_backup("wtf.txt")
+        self.assertTrue(result)
 
 
 if __name__ == "__main__":
