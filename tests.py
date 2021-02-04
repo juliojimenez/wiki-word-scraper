@@ -8,6 +8,7 @@ from wws import (
     word_list,
     clean_list,
     file_backup,
+    clean_write_to_file,
 )
 
 
@@ -39,6 +40,12 @@ class TestWikiWordScraper(unittest.TestCase):
     @patch("os.unlink")
     def test_file_backup(self, mock_unlink, mock_copyfile):
         result: bool = file_backup("wtf.txt")
+        self.assertTrue(result)
+
+    def test_clean_write_to_file(self):
+        with patch("builtins.open", create=True) as mock_open:
+            mock_open.return_value: _SpecialForm = MagicMock(spec=io.IOBase)
+            result: bool = clean_write_to_file("/some/path", ["a", "b", "c"])
         self.assertTrue(result)
 
 
