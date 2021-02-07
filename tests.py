@@ -9,6 +9,7 @@ from wws import (
     clean_list,
     file_backup,
     clean_write_to_file,
+    get_file_size,
 )
 
 
@@ -46,6 +47,12 @@ class TestWikiWordScraper(unittest.TestCase):
         with patch("builtins.open", create=True) as mock_open:
             mock_open.return_value: _SpecialForm = MagicMock(spec=io.IOBase)
             result: bool = clean_write_to_file("/some/path", ["a", "b", "c"])
+        self.assertTrue(result)
+
+    @patch("os.path.getsize")
+    def test_get_file_size(self, mock_getsize):
+        mock_getsize.return_value = 123456789
+        result: bool = get_file_size("some/path")
         self.assertTrue(result)
 
 
