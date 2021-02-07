@@ -70,7 +70,7 @@ def scraper(filename):
             file_backup(filename)
             clean_write_to_file(filename, clean)
             get_file_size(filename)
-            os.unlink(filename + ".bak")
+            os.unlink(f"{filename}.bak")
         except KeyboardInterrupt:
             print(" Thanks for playing!")
             break
