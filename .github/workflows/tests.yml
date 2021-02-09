@@ -14,4 +14,8 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
       - name: Tests
-        run: python3 tests.py
+        run: coverage run tests.py
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v1
+        with:
+          fail_ci_if_error: true
