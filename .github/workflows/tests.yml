@@ -14,4 +14,10 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
       - name: Tests
-        run: python3 tests.py
+        run: coverage run tests.py
+      - name: Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          fail_ci_if_error: true
