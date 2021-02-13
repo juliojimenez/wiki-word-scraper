@@ -1,4 +1,4 @@
-name: pre-plantuml Release
+name: wiki-word-scraper Release
 on:
   push:
     tags:
