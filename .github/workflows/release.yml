@@ -20,6 +20,6 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: |
             This release has the following changes:
-            - replaceLineInFile  Test
+            - Release Workflow.
           draft: false
           prerelease: false
