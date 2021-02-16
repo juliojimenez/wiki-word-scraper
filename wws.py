@@ -107,7 +107,10 @@ def main():
         type="int",
         dest="words",
         default=0,
-        help="Number of words the list shall contain before execution stops.",
+        help=(
+            "Minimum number of words the list shall "
+            "contain before execution stops."
+        ),
     )
     (options, args) = parser.parse_args()
     if options.output is not None:
