@@ -19,7 +19,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           body: |
-            This release has the following changes:
-            - Release Workflow.
+            This wiki-word-scraper release has the following changes:
+            - Minimum Word Count.
           draft: false
           prerelease: false
