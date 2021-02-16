@@ -60,7 +60,14 @@ def get_file_size(filename: str) -> bool:
     return True
 
 
-def scraper(filename):
+def check_word_count(words: int, word_list: list) -> bool:
+    if words > 0 and len(word_list) > words:
+        return True
+    else:
+        return False
+
+
+def scraper(filename: str, words: int):
     while True:
         try:
             random_wiki: str = get_wiki_text()
@@ -71,6 +78,8 @@ def scraper(filename):
             clean_write_to_file(filename, clean)
             get_file_size(filename)
             os.unlink(f"{filename}.bak")
+            if check_word_count(words, clean):
+                return True
         except KeyboardInterrupt:
             print(" Thanks for playing!")
             break
@@ -92,9 +101,17 @@ def main():
         dest="output",
         help="Output wordlist file.",
     )
+    parser.add_option(
+        "-w",
+        "--words",
+        type="int",
+        dest="words",
+        default=0,
+        help="Number of words the list shall contain before execution stops.",
+    )
     (options, args) = parser.parse_args()
     if options.output is not None:
-        scraper(options.output)
+        scraper(options.output, options.words)
     else:
         parser.print_help()
     return True
