@@ -10,6 +10,7 @@ from wws import (
     file_backup,
     clean_write_to_file,
     get_file_size,
+    check_word_count,
 )
 
 
@@ -54,6 +55,18 @@ class TestWikiWordScraper(unittest.TestCase):
         mock_getsize.return_value = 123456789
         result: bool = get_file_size("some/path")
         self.assertTrue(result)
+
+    def test_check_word_count_true(self):
+        words: int = 1
+        word_list: list = ["alice", "bob"]
+        result: bool = check_word_count(words, word_list)
+        self.assertTrue(result)
+
+    def test_check_word_count_false(self):
+        words: int = 0
+        word_list: list = ["alice", "bob"]
+        result: bool = check_word_count(words, word_list)
+        self.assertFalse(result)
 
 
 if __name__ == "__main__":
