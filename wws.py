@@ -112,6 +112,13 @@ def main():
             "contain before execution stops."
         ),
     )
+    parser.add_option(
+        "-s",
+        "--size",
+        type="string",
+        dest="size",
+        help="Size of wordlist file. TB, GB, MB, KB, B, case insensitive.",
+    )
     (options, args) = parser.parse_args()
     if options.output is not None:
         scraper(options.output, options.words)
