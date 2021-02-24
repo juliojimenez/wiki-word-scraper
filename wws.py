@@ -54,10 +54,10 @@ def clean_write_to_file(filename: str, clean_list: list) -> bool:
     return True
 
 
-def get_file_size(filename: str) -> bool:
+def get_file_size(filename: str) -> float:
     file_size: float = float(os.path.getsize(filename)) / 1000000
     print(f"[f] File Size: {file_size:.2f} MB\n")
-    return True
+    return file_size
 
 
 def check_word_count(words: int, word_list: list) -> bool:
@@ -67,7 +67,47 @@ def check_word_count(words: int, word_list: list) -> bool:
         return False
 
 
-def scraper(filename: str, words: int):
+def validate_size(size_string: str) -> float:
+    validator = re.search(
+        r"^([0-9]*)(TB|GB|MB|KB|B|Tb|Gb|Mb|Kb|tB|gB|mB|kB|tb|gb|mb|kb|b)$",
+        size_string,
+    )
+    if validator is not None:
+        if (
+            validator.group(2) == "TB"
+            or validator.group(2) == "Tb"
+            or validator.group(2) == "tB"
+            or validator.group(2) == "tb"
+        ):
+            return float(validator.group(1)) * 1000000
+        if (
+            validator.group(2) == "GB"
+            or validator.group(2) == "Gb"
+            or validator.group(2) == "gB"
+            or validator.group(2) == "gb"
+        ):
+            return float(validator.group(1)) * 1000
+        if (
+            validator.group(2) == "MB"
+            or validator.group(2) == "Mb"
+            or validator.group(2) == "mB"
+            or validator.group(2) == "mb"
+        ):
+            return float(validator.group(1))
+        if (
+            validator.group(2) == "KB"
+            or validator.group(2) == "Kb"
+            or validator.group(2) == "kB"
+            or validator.group(2) == "kb"
+        ):
+            return float(validator.group(1)) * 0.001
+        if validator.group(2) == "B" or validator.group(2) == "b":
+            return float(validator.group(1)) * 0.000001
+    else:
+        return -1
+
+
+def scraper(filename: str, words: int, size: float):
     while True:
         try:
             random_wiki: str = get_wiki_text()
@@ -76,9 +116,11 @@ def scraper(filename: str, words: int):
             clean: list = clean_list(filename)
             file_backup(filename)
             clean_write_to_file(filename, clean)
-            get_file_size(filename)
             os.unlink(f"{filename}.bak")
+            file_size: float = get_file_size(filename)
             if check_word_count(words, clean):
+                return True
+            if size > 0 and file_size >= size:
                 return True
         except KeyboardInterrupt:
             print(" Thanks for playing!")
@@ -121,7 +163,14 @@ def main():
     )
     (options, args) = parser.parse_args()
     if options.output is not None:
-        scraper(options.output, options.words)
+        size: float = 0
+        if options.size is not None:
+            size = validate_size(options.size)
+            if size < 0:
+                print("[x] Invalid --size -s option.")
+                parser.print_help()
+                return True
+        scraper(options.output, options.words, size)
     else:
         parser.print_help()
     return True
