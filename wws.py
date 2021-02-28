@@ -107,11 +107,21 @@ def validate_size(size_string: str) -> float:
         return -1
 
 
-def scraper(filename: str, words: int, size: float):
+def min_length(word_list: list, length: int) -> list:
+    min_length_words: list = []
+    for word in word_list:
+        if len(word) >= length:
+            min_length_words.append(word)
+    return min_length_words
+
+
+def scraper(filename: str, words: int, size: float, min: int):
     while True:
         try:
             random_wiki: str = get_wiki_text()
             unique_list: list = word_list(random_wiki)
+            if min > 0:
+                unique_list = min_length(unique_list, min)
             add_to_main_file(filename, unique_list)
             clean: list = clean_list(filename)
             file_backup(filename)
@@ -161,6 +171,14 @@ def main():
         dest="size",
         help="Size of wordlist file. TB, GB, MB, KB, B, case insensitive.",
     )
+    parser.add_option(
+        "-n",
+        "--min-length",
+        type="int",
+        dest="min_word_length",
+        default=0,
+        help="Minimum word length (characters).",
+    )
     (options, args) = parser.parse_args()
     if options.output is not None:
         size: float = 0
@@ -170,7 +188,7 @@ def main():
                 print("[x] Invalid --size -s option.")
                 parser.print_help()
                 return True
-        scraper(options.output, options.words, size)
+        scraper(options.output, options.words, size, options.min_word_length)
     else:
         parser.print_help()
     return True
