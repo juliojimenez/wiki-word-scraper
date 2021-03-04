@@ -115,13 +115,23 @@ def min_length(word_list: list, length: int) -> list:
     return min_length_words
 
 
-def scraper(filename: str, words: int, size: float, min: int):
+def max_length(word_list: list, length: int) -> list:
+    max_length_words: list = []
+    for word in word_list:
+        if len(word) <= length:
+            max_length_words.append(word)
+    return max_length_words
+
+
+def scraper(filename: str, words: int, size: float, min: int, max: int):
     while True:
         try:
             random_wiki: str = get_wiki_text()
             unique_list: list = word_list(random_wiki)
             if min > 0:
                 unique_list = min_length(unique_list, min)
+            if max > 0:
+                unique_list = max_length(unique_list, max)
             add_to_main_file(filename, unique_list)
             clean: list = clean_list(filename)
             file_backup(filename)
@@ -179,6 +189,14 @@ def main():
         default=0,
         help="Minimum word length (characters).",
     )
+    parser.add_option(
+        "-x",
+        "--max-length",
+        type="int",
+        dest="max_word_length",
+        default=0,
+        help="Maximum word length (characters).",
+    )
     (options, args) = parser.parse_args()
     if options.output is not None:
         size: float = 0
@@ -188,7 +206,13 @@ def main():
                 print("[x] Invalid --size -s option.")
                 parser.print_help()
                 return True
-        scraper(options.output, options.words, size, options.min_word_length)
+        scraper(
+            options.output,
+            options.words,
+            size,
+            options.min_word_length,
+            options.max_word_length,
+        )
     else:
         parser.print_help()
     return True
