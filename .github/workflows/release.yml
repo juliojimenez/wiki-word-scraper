@@ -20,6 +20,6 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: |
             This wiki-word-scraper release has the following changes:
-            - Minimum Word Length.
+            - Maximum Word Length.
           draft: false
           prerelease: false
