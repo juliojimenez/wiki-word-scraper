@@ -13,6 +13,7 @@ from wws import (
     check_word_count,
     max_length,
     min_length,
+    validate_size,
 )
 
 
@@ -81,6 +82,10 @@ class TestWikiWordScraper(unittest.TestCase):
         min_word_length: int = 5
         result: list = min_length(word_list, min_word_length)
         self.assertEquals(result, ["alice"])
+
+    def test_validate_size_success(self):
+        size: float = validate_size("1mb")
+        self.assertEquals(size, 1000)
 
 
 if __name__ == "__main__":
