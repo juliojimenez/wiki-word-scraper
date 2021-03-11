@@ -87,6 +87,10 @@ class TestWikiWordScraper(unittest.TestCase):
         size: float = validate_size("1gb")
         self.assertEquals(size, 1000)
 
+    def test_validate_size_fail(self):
+        size: float = validate_size("1hb")
+        self.assertEquals(size, -1)
+
 
 if __name__ == "__main__":
     unittest.main()
