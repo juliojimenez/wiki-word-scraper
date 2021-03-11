@@ -71,9 +71,9 @@ class TestWikiWordScraper(unittest.TestCase):
 
     def test_max_length(self):
         word_list: list = ["alice", "bob"]
-        max_word_length: int = 5
+        max_word_length: int = 3
         result: list = max_length(word_list, max_word_length)
-        self.assertEquals(result, ["alice"])
+        self.assertEquals(result, ["bob"])
 
 
 if __name__ == "__main__":
