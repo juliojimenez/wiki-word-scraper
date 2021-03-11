@@ -11,6 +11,9 @@ from wws import (
     clean_write_to_file,
     get_file_size,
     check_word_count,
+    max_length,
+    min_length,
+    validate_size,
 )
 
 
@@ -67,6 +70,26 @@ class TestWikiWordScraper(unittest.TestCase):
         word_list: list = ["alice", "bob"]
         result: bool = check_word_count(words, word_list)
         self.assertFalse(result)
+
+    def test_max_length(self):
+        word_list: list = ["alice", "bob"]
+        max_word_length: int = 3
+        result: list = max_length(word_list, max_word_length)
+        self.assertEquals(result, ["bob"])
+
+    def test_min_length(self):
+        word_list: list = ["alice", "bob"]
+        min_word_length: int = 5
+        result: list = min_length(word_list, min_word_length)
+        self.assertEquals(result, ["alice"])
+
+    def test_validate_size_success(self):
+        size: float = validate_size("1gb")
+        self.assertEquals(size, 1000)
+
+    def test_validate_size_fail(self):
+        size: float = validate_size("1hb")
+        self.assertEquals(size, -1)
 
 
 if __name__ == "__main__":
