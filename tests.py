@@ -11,6 +11,7 @@ from wws import (
     clean_write_to_file,
     get_file_size,
     check_word_count,
+    max_length,
 )
 
 
@@ -67,6 +68,12 @@ class TestWikiWordScraper(unittest.TestCase):
         word_list: list = ["alice", "bob"]
         result: bool = check_word_count(words, word_list)
         self.assertFalse(result)
+
+    def test_max_length(self):
+        word_list: list = ["alice", "bob"]
+        max_word_length: int = 5
+        result: list = max_length(word_list, max_word_length)
+        self.assertEquals(result, ["alice"])
 
 
 if __name__ == "__main__":
