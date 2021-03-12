@@ -67,6 +67,3 @@ Maximum word length in characters.
 ```shell
 $ python3 wws.py --max-length|-x 6 -o out.txt
 ```
-
-## Full Example
-
